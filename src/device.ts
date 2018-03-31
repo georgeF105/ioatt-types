@@ -4,6 +4,7 @@ export interface Device {
   name: string;
   state: any;
   type: string;
+  sensor?: string;
 }
 
 export interface SwitchDevice extends Device {

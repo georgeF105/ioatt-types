@@ -1,3 +1,4 @@
-export * from './devices';
-export * from './rules';
+export * from './db-schema';
+export * from './device';
+export * from './rule';
 export * from './user';
