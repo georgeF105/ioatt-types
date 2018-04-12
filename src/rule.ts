@@ -7,7 +7,7 @@ export interface Rule {
 }
 
 export type logicOperator = 'and' | 'or' | 'xor' | 'xand';
-export type RuleTypes = 'temperature' | 'time' | 'weekDay';
+export type RuleTypes = 'temperature' | 'time' | 'weekDay' | 'pwmValue';
 
 export interface RuleCondition {
   linkedDeviceKey: string;
@@ -37,4 +37,10 @@ export interface WeekDayRuleCondition extends RuleCondition {
   saturday: boolean;
   sunday: boolean;
   type: 'weekDay';
+}
+
+export interface PWValueCondition extends RuleCondition {
+  maxValue: number;
+  timeToMax: number;
+  type: 'pwmValue';
 }
