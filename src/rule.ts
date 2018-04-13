@@ -1,7 +1,7 @@
 export interface Rule {
   $key: string;
   active: boolean;
-  conditions: Array<TemperatureRuleCondition | TimeRuleCondition | WeekDayRuleCondition>;
+  conditions: Array<RuleCondition>;
   linkedDeviceKey: string;
   name: string;
 }
@@ -9,26 +9,36 @@ export interface Rule {
 export type logicOperator = 'and' | 'or' | 'xor' | 'xand';
 export type RuleTypes = 'temperature' | 'time' | 'weekDay' | 'pwmValue';
 
-export interface RuleCondition {
+export interface RuleConditionBase {
   linkedDeviceKey: string;
   logicOperator: logicOperator;
   type: RuleTypes;
 }
 
-export interface TemperatureRuleCondition extends RuleCondition {
+export interface TemperatureRuleCondition extends RuleConditionBase {
   sensorDataKey: string;
   sensorKey: string;
   type: 'temperature';
   value: number;
 }
 
-export interface TimeRuleCondition extends RuleCondition {
+export interface TimeRuleCondition extends RuleConditionBase {
   startTime: string;
   endTime: string;
   type: 'time';
 }
 
-export interface WeekDayRuleCondition extends RuleCondition {
+export enum weekDayEnum {
+  sunday = 0,
+  monday = 1,
+  tuesday = 2,
+  wednesday = 3,
+  thursday = 4,
+  friday = 5,
+  saturday = 6
+}
+
+export interface WeekDayRuleCondition extends RuleConditionBase {
   monday: boolean;
   tuesday: boolean;
   wednesday: boolean;
@@ -39,8 +49,13 @@ export interface WeekDayRuleCondition extends RuleCondition {
   type: 'weekDay';
 }
 
-export interface PWValueCondition extends RuleCondition {
+export interface PWMValueCondition extends RuleConditionBase {
   maxValue: number;
   timeToMax: number;
   type: 'pwmValue';
 }
+
+export type RuleCondition = TemperatureRuleCondition
+  | TimeRuleCondition
+  | WeekDayRuleCondition
+  | PWMValueCondition;
