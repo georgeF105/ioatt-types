@@ -1,16 +1,13 @@
 export interface Device {
   id: string;
   name: string;
-  state: DeviceState;
+  state: boolean | number;
   type: string;
   sensor?: string;
 }
-
-export interface SwitchDevice extends Device {
-  type: 'switch';
-}
+export type DeviceType = 'switch' | 'pwmValue';
 
 export interface DeviceState {
-  pwmValue: number;
-  switch: boolean;
+  pwmValue?: number;
+  switch?: boolean;
 }

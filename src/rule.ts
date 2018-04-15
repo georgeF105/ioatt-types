@@ -1,9 +1,10 @@
 export interface Rule {
-  $key: string;
+  key: string;
   active: boolean;
   conditions: Array<RuleCondition>;
   linkedDeviceKey: string;
   name: string;
+  lastUpdated: number;
 }
 
 export type logicOperator = 'and' | 'or' | 'xor' | 'xand';
@@ -52,6 +53,7 @@ export interface WeekDayRuleCondition extends RuleConditionBase {
 export interface PWMValueCondition extends RuleConditionBase {
   maxValue: number;
   timeToMax: number;
+  logicOperator: 'and'
   type: 'pwmValue';
 }
 
